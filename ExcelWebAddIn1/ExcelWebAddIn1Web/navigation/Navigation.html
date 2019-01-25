@@ -1,0 +1,66 @@
+﻿
+    <div id="top-bar" class="top-bar">
+        <div class="bar">
+            <div>
+                <button id="navbox-trigger" class="navbox-trigger"><i class="fa fa-lg fa-th"></i></button>
+                    <span class ="subTitle">Software Configuration</span>
+            </div>
+        </div>
+        <div class="navbox">
+            <div class="navbox-tiles">
+                <a href="#" class="tile">
+                    <div class="icon" id="Software"><i class="fa fa-ravelry"></i></div><span class="title">Software</span>
+                </a>
+                <a href="#" class="tile">
+                    <div class="icon" id="Hardware"><i class="fa fa-cogs"></i></div><span class="title">Hardware</span>
+                </a>
+                <a href="#" class="tile">
+                    <div class="icon" id="Spare"><i class="fa fa-line-chart"></i></div><span class="title">Spare</span>
+                </a>
+                <!--
+      <a href="#" class="tile">
+         <div class="icon"><i class="fa fa-lg fa-envelope-o"></i></div><span class="title">Contact</span>
+     </a>
+     <a href="#" class="tile">
+         <div class="icon"><i class="fa fa-wordpress"></i></div><span class="title">Blog</span>
+     </a>
+    -->
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
+            $(document).ready(function () {
+                $('#navbox-trigger').click(function () {
+                    return $('#top-bar').toggleClass('navbox-open');
+                });
+                return $(document).on('click', function (e) {
+                    var $target;
+                    $target = $(e.target);
+                    if (!$target.closest('.navbox').length && !$target.closest('#navbox-trigger').length) {
+                        return $('#top-bar').removeClass('navbox-open');
+                    }
+                });
+            });
+        }.call(this));
+
+        $("#Spare").click(function () {
+            //清除登陆页,加载
+            $.clearMainWindows();
+        })
+        $("#Software").click(function () {
+            //清除登陆页,加载
+            $.clearMainWindows();
+            //加载主页
+            $.loadMainWindows("softConfig/SoftConfig.html");
+        })
+        $("#Hardware").click(function () {
+            //清除登陆页,加载
+            $.clearMainWindows();
+        })
+        
+
+    </script>
+
+

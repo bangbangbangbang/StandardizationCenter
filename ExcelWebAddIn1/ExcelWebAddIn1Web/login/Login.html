@@ -1,0 +1,51 @@
+﻿
+<script type="text/javascript">
+    $(function () {
+
+        $("#Login").click(function () {
+
+            //清除登陆页,加载
+            $.clearMainWindows();
+            //加载导航
+            $.loadNavigation("navigation/Navigation.html");
+            //加载主页
+            $.loadMainWindows("softConfig/SoftConfig.html");
+
+            //验证登陆是否成功
+            const mock_username = "root"; //用户名
+            const mock_password = "root"; //密码
+            if ($("#username").val() == mock_username && $("#password").val() == mock_password) {
+
+            }
+        })
+    });
+
+</script>
+
+<div id="loginHtml">
+    <div class="bg" style="position:absolute;z-index:-1;width:100%;height:100%;overflow:hidden">
+        <img src="./login/bg.png" width="100%" height="100%" />
+    </div>
+    <div class="container login">
+        <div class="row">
+            <div class="col">
+                <div class="hide-md-lg">
+                    <p>Welcome AE Standardization Center</p>
+                </div>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login" id="Login">
+            </div>
+        </div>
+    </div>
+    <!--
+        <div class="bottom-container">
+        <div class="row">
+            <div class="col">
+                <a href="#" style="color:white" class="btn">Sign up</a>
+            </div>
+
+        </div>
+    </div>
+      -->
+</div>

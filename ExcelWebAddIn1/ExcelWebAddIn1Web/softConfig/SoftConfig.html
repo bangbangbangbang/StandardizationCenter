@@ -1,0 +1,111 @@
+﻿<div id="main">
+    <table id="example-advanced">
+        <caption>
+            <a href="#" onclick="jQuery('#example-advanced').treetable('expandAll'); return false;">Expand all</a>
+            <a href="#" onclick="jQuery('#example-advanced').treetable('collapseAll'); return false;">Collapse all</a>
+        </caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Remark</th>
+                <th>Operate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--
+            <tr data-tt-id='1'><td><span class='folder'>Logic Function</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-9' data-tt-parent-id='1'><td><span class='folder'>FB_EL_SWITCH</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-10' data-tt-parent-id='1'><td><span class='folder'>FB_OP_PRB_1D2S</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-11' data-tt-parent-id='1'><td><span class='folder'>FB_OP_PRB_1D2SG</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-12' data-tt-parent-id='1'><td><span class='folder'>FB_OP_PRB_2D1S2P</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-13' data-tt-parent-id='1'><td><span class='folder'>FB_OP_PRB_2D2S</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-14' data-tt-parent-id='1'><td><span class='folder'>FB_OP_PRB_2D2ST</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-15' data-tt-parent-id='1'><td><span class='folder'>FB_OP_SHT_2D2S15P</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-16' data-tt-parent-id='1'><td><span class='folder'>FB_OP_TT_2D2S2P</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-17' data-tt-parent-id='1'><td><span class='folder'>F_EVM58</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-18' data-tt-parent-id='1'><td><span class='folder'>P+-PN</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-19' data-tt-parent-id='1'><td><span class='folder'>SPEED_ADJUST_ENCODER</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-20' data-tt-parent-id='1'><td><span class='folder'>FB_OP_YP_2D2P</span></td><td></td><td></td></tr>
+            <tr data-tt-id='1-21' data-tt-parent-id='1'><td><span class='folder'>FB_POS_CONTROL</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2'><td><span class='folder'>Driving Function</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2-3' data-tt-parent-id='2'><td><span class='folder'>FB_SIEMENS_SPEED_INV</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2-4' data-tt-parent-id='2'><td><span class='folder'>FB_SEW_Absolute_Pos_Simple</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2-5' data-tt-parent-id='2'><td><span class='folder'>FB_SEW_Absolute_Position</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2-6' data-tt-parent-id='2'><td><span class='folder'>FB_SEW_Extended Position</span></td><td></td><td></td></tr>
+            <tr data-tt-id='2-7' data-tt-parent-id='2'><td><span class='folder'>FB_SEW_Speed_Control</span></td><td></td><td></td></tr>
+            -->
+
+        </tbody>
+    </table>
+
+</div>
+
+<script>
+    $(function () {
+        $.ajax({
+            url: 'json/SoftData.json',
+            async: false,
+            success: function (data) {
+                var arrL = data[0].SWViewList;
+                var arrQ = data[1].SWViewList;
+                var html = '';
+                for (var i = 0; i < arrL.length; i++) {
+                    var pid = arrL[i].pId;
+                    if (pid == 1) {
+                        html += '<tr data-tt-id=\'1-' + arrL[i].id + '\' data-tt-parent-id=\'' + arrL[i].pId + '\'><td><span class=\'folder\'>' + arrL[i].name + '</span></td><td></td><td></td></tr>';
+                    } else {
+                        html += '<tr data-tt-id=\'' + arrL[i].id + '\'><td><span class=\'folder\'>' + arrL[i].name + '</span></td><td></td><td></td></tr>';
+                    }
+                }
+                for (var i = 0; i < arrQ.length; i++) {
+                    var pid = arrQ[i].pId;
+                    if (pid == 2) {
+                        html += '<tr data-tt-id=\'2-' + arrQ[i].id + '\' data-tt-parent-id=\'' + arrQ[i].pId + '\'><td><span class=\'folder\'>' + arrQ[i].name + '</span></td><td></td><td></td></tr>';
+                    } else {
+                        html += '<tr data-tt-id=\'' + arrQ[i].id + '\'><td><span class=\'folder\'>' + arrQ[i].name + '</span></td><td></td><td></td></tr>';
+
+                    }
+                }
+                $("#example-advanced tbody").append(html);
+            }
+        });
+    });
+
+
+    $("#example-advanced").treetable({ expandable: true });
+
+    // Highlight selected row
+    $("#example-advanced tbody").on("mousedown", "tr", function () {
+        $(".selected").not(this).removeClass("selected");
+        $(this).toggleClass("selected");
+
+    });
+
+    // Drag & Drop Example Code
+    $("#example-advanced .file, #example-advanced .folder").draggable({
+        helper: "clone",
+        opacity: .75,
+        refreshPositions: true, // Performance?
+        revert: "invalid",
+        revertDuration: 300,
+        scroll: true
+    });
+
+    $("#example-advanced .folder").each(function () {
+        $(this).parents("#example-advanced tr").droppable({
+            accept: ".file, .folder",
+            drop: function (e, ui) {
+                var droppedEl = ui.draggable.parents("tr");
+                $("#example-advanced").treetable("move", droppedEl.data("ttId"), $(this).data("ttId"));
+            },
+            hoverClass: "accept",
+            over: function (e, ui) {
+                var droppedEl = ui.draggable.parents("tr");
+                if (this != droppedEl[0] && !$(this).is(".expanded")) {
+                    $("#example-advanced").treetable("expandNode", $(this).data("ttId"));
+                }
+            }
+        });
+    });
+
+</script>

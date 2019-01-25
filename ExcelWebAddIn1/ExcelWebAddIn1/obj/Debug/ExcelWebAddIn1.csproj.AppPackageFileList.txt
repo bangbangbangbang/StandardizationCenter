@@ -1,0 +1,2 @@
+bin\Debug\app.publish\OfficeAppManifests\ExcelWebAddIn1Manifest.xml
+C:\Users\Administrator\source\repos\ExcelWebAddIn1\ExcelWebAddIn1\bin\Debug\app.publish\ExcelWebAddIn1.app
